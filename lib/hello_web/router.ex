@@ -14,12 +14,46 @@ defmodule HelloWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :review_checks do
+    plug :browser
+    # plug :ensure_authenticated_user
+    # plug :ensure_user_owns_review
+  end
+
   scope "/", HelloWeb do
     pipe_through :browser
 
     get "/", PageController, :index
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
+
+    resources "/users", UserController do
+      resources "/posts", PostController
+    end
+  end
+
+  scope "/admin", HelloWeb.Admin, as: :admin do
+    pipe_through :browser
+
+    resources "/images", ImageController
+    resources "/reviews", ReviewController
+    resources "/users", UserController
+  end
+
+  scope "/api", HelloWeb.Api, as: :api do
+    pipe_through :api
+
+    scope "/v1", V1, as: :v1 do
+      resources "/images", ImageController
+      resources "/reviews", ReviewController
+      resources "/users", UserController 
+    end
+  end
+
+  scope "/reviews", HelloWeb do
+    pipe_through [:review_checks]
+
+    resources "/reviews", ReviewController
   end
 
   # Other scopes may use custom stacks.
