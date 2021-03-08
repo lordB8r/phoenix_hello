@@ -1,4 +1,4 @@
-# Phoenix_hello - initial commit for leanring Phoenix
+# Phoenix_hello - initial commit for learning Phoenix
 
 # Hello
 
