@@ -1,3 +1,4 @@
 <div class="phx-hero" >
 	<h2>Hello World, from <%= @messenger %>!</h2>
+	<h3>Say hi from <%= @receiver %>!</h3>
 </div>
