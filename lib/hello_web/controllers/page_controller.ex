@@ -1,14 +1,23 @@
 defmodule HelloWeb.PageController do
   use HelloWeb, :controller
 
+  def show(conn, _params) do
+    page = %{title: "foo"}
+
+    render(conn, "show.json", page: page)
+  end
+
   def index(conn, _params) do
+    pages =[%{title: "foo"}, %{title: "bar"}]
+
+    render(conn, "index.json", pages: pages)
     # redirect(conn, to: Routes.page_path(conn, :redirect_test))
     # redirect(conn, external: "https://www.google.com")
     # redirect(conn, to: "/redirect_test")
-    conn
-    |> put_flash(:info, "Welcome to lordB8r's playground, from flash info!")
-    |> put_flash(:error, "Let's pretend we have an error.")
-    |> render("index.html")
+    # conn
+    # |> put_flash(:info, "Welcome to lordB8r's playground, from flash info!")
+    # |> put_flash(:error, "Let's pretend we have an error.")
+    # |> render("index.html")
     # |> put_layout("admin.html")             # render the normal stuff
     # |> render(:index)
     # |> put_resp_content_type("text/plain")  # intentionally render an error

@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Hello · Phoenix Framework</title>
+    <title><%= title()%></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
@@ -31,5 +31,19 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= @inner_content %>
     </main>
+    <%# <%= Phoenix.View.render(HelloWeb.PageView, "test.html", message: "Hello from layout!") %>
+    <%= render(HelloWeb.PageView, "test.html", message: "Hello from layout!") %>
+    <table>
+      <tr>
+        <th>Number</th>
+        <th>Power</th>
+      </tr>
+      <%= for number <- 1..10 do %>
+        <tr>
+          <td><%= number %></td>
+          <td><%= number * number %></td>
+        </tr>
+      <% end %> 
+    </table>
   </body>
 </html>
