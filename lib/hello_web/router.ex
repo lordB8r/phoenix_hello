@@ -24,13 +24,17 @@ defmodule HelloWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/redirect_test", PageController, :redirect_test
-    get "/hello", HelloController, :index
-    get "/hello/:messenger", HelloController, :show
+    resources "/users", UserController
+    resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
 
-    resources "/users", UserController do
-      resources "/posts", PostController
-    end
+    # get "/", PageController, :index
+    # get "/redirect_test", PageController, :redirect_test
+    # get "/hello", HelloController, :index
+    # get "/hello/:messenger", HelloController, :show
+
+    # resources "/users", UserController do
+    #   resources "/posts", PostController
+    # end
 
 
   end
@@ -63,6 +67,18 @@ defmodule HelloWeb.Router do
   # scope "/api", HelloWeb do
   #   pipe_through :api
   # end
+
+  defp authenicate_user(conn, _) do
+    case get_session(conn, :user_id) do
+      nil ->
+        conn
+        |> Phoenix.Controller.put_flash(:error, "Login require")
+        |> Phoenix.Controller.redirect(to: "/")
+        |> halt()
+      user_id ->
+        assign(conn, :current_user, Hello.Accounts.get_user!(user_id))
+    end
+  end
 
   # Enables LiveDashboard only for development
   #
