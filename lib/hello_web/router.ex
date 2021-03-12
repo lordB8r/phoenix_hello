@@ -57,6 +57,13 @@ defmodule HelloWeb.Router do
     end
   end
 
+  scope "/cms", HelloWeb.CMS, as: :cms do
+    pipe_through [:browser, :authenicate_user]
+
+    resources "/pages", PageController
+
+  end
+
   scope "/reviews", HelloWeb do
     pipe_through [:review_checks]
 
