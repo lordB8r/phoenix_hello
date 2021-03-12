@@ -2,8 +2,9 @@ defmodule HelloWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", HelloWeb.RoomChannel
-
+  channel "room:*", HelloWeb.RoomChannel
+  # channel "call:*", HelloWeb.CallChannel
+  
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into
