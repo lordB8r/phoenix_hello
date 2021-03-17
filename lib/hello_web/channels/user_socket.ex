@@ -2,7 +2,7 @@ defmodule HelloWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", HelloWeb.RoomChannel
+  channel "room:lobby", HelloWeb.RoomChannel
   # channel "call:*", HelloWeb.CallChannel
   
   # Socket params are passed from the client and can
@@ -17,8 +17,9 @@ defmodule HelloWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(params, socket, _connect_info) do
+    {:ok, assign(socket, :user_id, params["user_id"])}
+    # {:ok, socket}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
