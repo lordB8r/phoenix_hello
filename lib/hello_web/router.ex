@@ -26,6 +26,7 @@ defmodule HelloWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
+    resources "/posts", PostController
 
     # get "/", PageController, :index
     # get "/redirect_test", PageController, :redirect_test
